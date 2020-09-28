@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node</title>
+    <%- include('partials/head.ejs') %>
+  </head>
+  <body>
+    <%- include('partials/navbar.ejs') %>
+
+    <div class="container mt-4">
+      <h1>Mascotas</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+            <% if (arrayMascotas.length > 0) { %>
+          
+                <% arrayMascotas.forEach(mascota => { %>
+                    
+                    <tr>
+                      <th scope="row"><%= mascota.id %> </th>
+                      <td><%= mascota.name %> </td>
+                      <td><%= mascota.description %> </td>
+                      <td>@mdo</td>
+                    </tr>
+                
+                <% }) %>
+            
+            <% } %>
+
+        </tbody>
+      </table>
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+  </body>
+</html>
