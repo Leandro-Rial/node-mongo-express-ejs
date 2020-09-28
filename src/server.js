@@ -10,6 +10,20 @@ app.listen(port, () => {
     console.log('Helouda', port)
 })
 
+// CONFIG DOTENV
+require('dotenv').config();
+
+// CONNECTION TO DATABASE
+
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.vzdjj.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
+
+mongoose.connect(uri,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+)
+    .then(() => console.log('Database Connected'))
+    .catch(e => console.log(e))
+
+
 // SETTINGS
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -25,17 +39,3 @@ app.use((req, res, next) => {
 
 // MIDDELWARE
 // app.use(express.static(path.join(__dirname, 'public')))
-
-// CONNECTION TO DATABASE
-
-const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.vzdjj.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
-
-mongoose.connect(uri,
-    { useNewUrlParser: true, useUnifiedTopology: true }
-)
-    .then(() => console.log('Database Connected'))
-    .catch(e => console.log(e))
-
-
-// CONFIG DOTENV
-require('dotenv').config();
