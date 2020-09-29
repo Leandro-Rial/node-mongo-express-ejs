@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 // LISTEN
 const port = process.env.PORT || 3000;
@@ -39,3 +40,7 @@ app.use((req, res, next) => {
 
 // MIDDELWARE
 // app.use(express.static(path.join(__dirname, 'public')))
+
+// BODYPARSER
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())

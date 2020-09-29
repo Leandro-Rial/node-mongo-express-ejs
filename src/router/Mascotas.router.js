@@ -16,7 +16,10 @@ router.get('/', async (req, res) => {
         console.log(error)
     }
     
-    
 })
+
+router.get('/crear', (req, res) => {
+    res.render('crear')
+});
 
 module.exports = router;
