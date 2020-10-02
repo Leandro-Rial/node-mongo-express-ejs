@@ -11,6 +11,14 @@
 
     <div class="container mt-4">
       <h1>Mascotas</h1>
+
+      <a
+        href="/mascotas/crear"
+        class="btn btn-success my-4"
+      >
+        Crear nueva mascota
+      </a>
+
       <table class="table">
         <thead>
           <tr>
@@ -30,7 +38,9 @@
                       <th scope="row"><%= mascota.id %> </th>
                       <td><%= mascota.name %> </td>
                       <td><%= mascota.description %> </td>
-                      <td>@mdo</td>
+                      <td>
+                        <a href="mascotas/<%= mascota.id %>" class="btn btn-warning btn-sm">Editar</a>
+                      </td>
                     </tr>
                 
                 <% }) %>

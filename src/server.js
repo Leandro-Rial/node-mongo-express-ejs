@@ -4,6 +4,10 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+// BODYPARSER
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 // LISTEN
 const port = process.env.PORT || 3000;
 
@@ -40,7 +44,3 @@ app.use((req, res, next) => {
 
 // MIDDELWARE
 // app.use(express.static(path.join(__dirname, 'public')))
-
-// BODYPARSER
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())

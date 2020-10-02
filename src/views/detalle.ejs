@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node</title>
+    <%- include('partials/head.ejs') %>
+  </head>
+  <body>
+    <%- include('partials/navbar.ejs') %>
+
+    <div class="container mt-4">
+      <h1>Detalle de la Mascota</h1>
+      <% if (error) { %>
+      <p><%= mensaje %></p>
+      <a href="/mascotas" class="btn btn-dark btn-block">Volver a mascotas</a>
+      
+      <% } %> <% if (!error) { %>
+
+        <form id="formularioEditar" data-id="<%= mascota.id %>">
+          <input
+            type="text"
+            class="form-control my-2"
+            name="name"
+            value="<%= mascota.name %>"
+            id="nameInput"
+          >
+          <input
+            type="text"
+            class="form-control my-2"
+            name="description"
+            value="<%= mascota.description %>"
+            id="descriptionInput"
+          >
+          <button
+            class="btn btn-warning btn-block"
+            type="submit"
+          >
+            Editar
+          </button>
+        </form>
+
+        <hr>
+
+        <button
+          class="btn btn-danger btn-sm mt-5"
+          id="btnEliminar"
+          data-id="<%= mascota.id %>"
+        >
+          Eliminar
+        </button>
+
+      <% } %>
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+
+    <script>
+      const btnEliminar = document.querySelector('#btnEliminar')
+
+      btnEliminar.addEventListener('click', async () => {
+        console.log('ostras')
+        const id = btnEliminar.dataset.id
+        console.log('id', id)
+        try {
+          const data = await fetch(`/mascotas/${id}`, {
+            method: 'delete'
+          })
+          const res = await data.json()
+          
+          if (res.estado) {
+            window.location.href = '/mascotas'
+          } else {
+            console.log(res)
+          }
+
+        } catch (error) {
+          console.log(error)
+        }
+      })
+
+
+      const formularioEditar = document.querySelector('#formularioEditar');
+      formularioEditar.addEventListener('submit', async (e) => {
+        e.preventDefault()
+
+        const name = document.querySelector('#nameInput').value;
+        const description = document.querySelector('#descriptionInput').value;
+
+        const id = formularioEditar.dataset.id
+
+        try {
+
+          const data = await fetch(`/mascotas/${id}`, {
+            method: 'put',
+            headers: {
+              'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({name, description})
+          })
+          
+          const res = await data.json()
+
+          if(res.estado){
+            window.location.href = '/mascotas'
+          } else {
+            console.log(res)
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      })
+    </script>
+
+  </body>
+</html>
